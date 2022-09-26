@@ -1,0 +1,1 @@
+export { apiPath } from './api-path.enum';

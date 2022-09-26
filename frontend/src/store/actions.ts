@@ -1,0 +1,1 @@
+export * as postsActions from './posts/actions';
