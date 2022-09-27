@@ -1,4 +1,4 @@
-import "./index.scss";
+import "accets/css/styles.scss";
 
 import React from "react";
 import { BrowserRouter} from 'react-router-dom';

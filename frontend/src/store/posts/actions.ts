@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AsyncThunkConfig, Post } from "common/types/types";
-import { GetPostRequestDto } from "services/posts/posts.service";
+
 import { ActionType } from "./common";
 
 const getPosts = createAsyncThunk<
@@ -10,7 +10,7 @@ AsyncThunkConfig
 >(ActionType.GET_POSTS, async (payload, { extra }) => {
   const {postsApi} = extra;
 
-  const posts = postsApi.getAll();
+  const posts = await postsApi.getAll();
 
   return posts;
 })
@@ -19,24 +19,28 @@ const getTags = createAsyncThunk<
 string[],
 void,
 AsyncThunkConfig
->(ActionType.GET_TAGS, (payload, { extra}) => {
+>(ActionType.GET_TAGS, async (payload, { extra}) => {
   const { tagsApi } = extra;
-  const tags = tagsApi.getAll();
+  const tags = await tagsApi.getAll();
 
   return tags;
 });
 
 const getPost = createAsyncThunk<
-Post,
+Post | null,
 string,
 AsyncThunkConfig
->(ActionType.GET_POST, (payload, { extra}) => {
+>(ActionType.GET_POST, async (payload, { extra}) => {
   const { postsApi } = extra;
-  console.log(payload);
-  
-  const post = postsApi.getPost(payload);
+  try {
+    const post = await postsApi.getPost(payload);
 
-  return post;
+    return post;
+    
+  } catch (error) {
+    console.log(error);
+    return null
+  }
 })
 
 export { getPosts, getTags, getPost };

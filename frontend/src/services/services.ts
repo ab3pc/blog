@@ -1,8 +1,10 @@
 import { apiPath } from 'common/enums/enums';
+import { AuthApi } from './auth-api/auth-api.service';
 import { Http } from './http/http.service';
-import { PostsApi } from './posts/posts.service';
+import { Notification } from './nofitication/notification.service';
+import { PostsApi } from './posts-api/posts.service';
 import { Storage } from './storage/storage.service';
-import { TagsApi } from './tags/tags.serveice';
+import { TagsApi } from './tags-api/tags.serveice';
 
 const storage = new Storage({
   storage: localStorage,
@@ -19,6 +21,12 @@ const postsApi = new PostsApi({
 
 const tagsApi = new TagsApi({
   apiPrefix: apiPath.TAGS
-})
+});
 
-export { storage, http, postsApi, tagsApi };
+const authApi = new AuthApi({
+  apiPrefix: apiPath.AUTH
+});
+
+const notification = new Notification();
+
+export { storage, http, postsApi, tagsApi, authApi, notification };

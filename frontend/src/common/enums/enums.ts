@@ -6,3 +6,4 @@ export {
 } from './app/app';
 export { ContentType, HttpHeader, HttpMethod, HttpCode } from './http/http';
 export { apiPath } from './api/api';
+export { NotificationType, NotificationMessage } from './notification/notification';
