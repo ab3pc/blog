@@ -1,15 +1,17 @@
 import Container from "@mui/material/Container";
 import React, { FC } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "components";
 import { AppRoute } from "common/enums/app/app";
 
-import { Home, FullPost, Registration, AddPost, Login } from "../../pages";
+import { Home, FullPost, Registration, AddPost, Login } from "pages";
 import { Header } from "components/header/index";
+import { Toast } from "components/common/common";
 
 const App:FC = () => {
 
   return (
     <>
+      <Toast/>
       <Header />
       <Container maxWidth="lg">
        <Routes>
@@ -19,6 +21,7 @@ const App:FC = () => {
         <Route path={AppRoute.LOGIN} element={<Login/>}/>
         <Route path={AppRoute.REGISTER} element={<Registration/>}/>
        </Routes>
+      
       </Container>
     </>
   );

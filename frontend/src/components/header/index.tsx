@@ -4,11 +4,19 @@ import Button from '@mui/material/Button';
 import styles from './header.module.scss';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { authActions } from 'store/actions';
 
 const Header = () => {
-  const isAuth = false;
+  const { user } = useAppSelector(({auth}) => ({
+    user: auth.user
+  }));
+  const dispatch = useAppDispatch();
+  const hasUser = Boolean(user);
 
-  const onClickLogout = () => {};
+  const onClickLogout = () => {
+    dispatch(authActions.logout());
+  };
  
   return (
     <div className={styles.root}>
@@ -18,22 +26,22 @@ const Header = () => {
             <div>My BLOG</div>
           </Link>
           <div className={styles.buttons}>
-            {isAuth ? (
+            {hasUser ? (
               <>
                 <Link to="/posts/create">
-                  <Button variant="contained">Написать статью</Button>
+                  <Button variant="contained">Write an article</Button>
                 </Link>
                 <Button onClick={onClickLogout} variant="contained" color="error">
-                  Выйти
+                  Log out
                 </Button>
               </>
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outlined">Войти</Button>
+                  <Button variant="outlined">Log in</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="contained">Создать аккаунт</Button>
+                  <Button variant="contained">Create account</Button>
                 </Link>
               </>
             )}

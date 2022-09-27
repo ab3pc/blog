@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 200px);
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  //background-color: var(--color-btn-blue);
+  margin: auto;
+  border: 10px solid var(--color-btn-blue);
+  border-top: 10px solid #ccc;
+  animation: load infinite 1s linear;
+};
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

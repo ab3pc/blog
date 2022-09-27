@@ -5,7 +5,7 @@ import { getPost, getPosts, getTags } from "./actions";
 
 type State = {
   dataStatus: DataStatus,
-  posts: Post[],
+  posts: Post[] ,
   post: Post | null,
   tags: string[],
 };
