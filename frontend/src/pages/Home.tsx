@@ -9,11 +9,13 @@ import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
 import { postsActions } from 'store/actions';
 import { DataStatus } from 'common/enums/enums';
+import { Post as PostType} from 'common/types/types';
 
 export const Home:FC = () => {
 
   const dispatch = useAppDispatch();
-  const { posts, dataStatus, tags } = useAppSelector(({posts}) => ({
+  const { posts, dataStatus, tags, userId } = useAppSelector(({posts, auth}) => ({
+    userId: auth.user?._id,
     posts: posts.posts,
     tags: posts.tags,
     dataStatus: posts.dataStatus,
@@ -35,7 +37,10 @@ export const Home:FC = () => {
       <Grid container spacing={4}>
         <Grid xs={8} item>
 
-          { (isLoading ? [...Array(5)]: posts).map((post) => ( isLoading ? <Post isLoading={isLoading}/>:
+          { (isLoading ? [...Array(5)]: posts).map((post: PostType) => {
+             const isEditable = userId === post?.author._id;
+              
+            return ( isLoading ? <Post isLoading={isLoading}/>:
             <Post
               id={post._id}
               title={post.title}
@@ -45,10 +50,10 @@ export const Home:FC = () => {
               viewsCount={post.viewsCount}
               commentsCount={3}
               tags={post.tags}
-              isEditable
+              isEditable = {isEditable}
              
             />
-          ))}
+          )})}
         </Grid>
         <Grid xs={4} item>
           <TagsBlock items={tags} isLoading={isLoading} />

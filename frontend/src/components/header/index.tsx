@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@mui/material/Button';
 
 import styles from './header.module.scss';
@@ -6,6 +5,7 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { authActions } from 'store/actions';
+import { AppRoute } from 'common/enums/enums';
 
 const Header = () => {
   const { user } = useAppSelector(({auth}) => ({
@@ -23,12 +23,12 @@ const Header = () => {
       <Container maxWidth="lg">
         <div className={styles.inner}>
           <Link className={styles.logo} to="/">
-            <div>My BLOG</div>
+            <div>Our BLOG</div>
           </Link>
           <div className={styles.buttons}>
             {hasUser ? (
               <>
-                <Link to="/posts/create">
+                <Link to={AppRoute.ADD_POST}>
                   <Button variant="contained">Write an article</Button>
                 </Link>
                 <Button onClick={onClickLogout} variant="contained" color="error">

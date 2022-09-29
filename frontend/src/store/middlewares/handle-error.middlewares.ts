@@ -12,7 +12,8 @@ const handleError: Middleware =
   (next) =>
   (action): void => {
     if (action.error) {
-      const { message } = action.error;
+         const { message } = action.error;
+      
       dispatch(appActions.notify({ type: NotificationType.ERROR, message }));
     }
 

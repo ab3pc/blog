@@ -1,5 +1,6 @@
 enum NotificationMessage {
-  SUCCESS = "SUCCESS"
+  SUCCESS = "SUCCESS",
+  CREATE_POST = "Post was successfully published"
 }
 
 export { NotificationMessage };

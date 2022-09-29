@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AsyncThunkConfig, Post } from "common/types/types";
+import { NotificationMessage } from "common/enums/enums";
+import { AsyncThunkConfig, CreatePostRequestDto, CreatePostResponseDto, Post } from "common/types/types";
 
 import { ActionType } from "./common";
 
@@ -41,6 +42,30 @@ AsyncThunkConfig
     console.log(error);
     return null
   }
+});
+
+const uploadImage = createAsyncThunk<
+  string,
+  {file: FormData},
+  AsyncThunkConfig
+  >(ActionType.UPLOAD_IMAGE, (payload, { extra}) => {  
+  const { postsApi } = extra;
+  const link = postsApi.uploadImage(payload.file);
+
+  return link;
 })
 
-export { getPosts, getTags, getPost };
+const createPost = createAsyncThunk<
+  CreatePostResponseDto,
+  CreatePostRequestDto  ,
+  AsyncThunkConfig
+>(ActionType.CREATE_POST, async (payload, { extra}) => {
+  const { postsApi, notification } = extra;
+  const newPost = await postsApi.createPost(payload)
+  if (newPost) {
+    notification.success(NotificationMessage.CREATE_POST)
+  }
+  return newPost
+})
+
+export { getPosts, getTags, getPost, uploadImage, createPost };

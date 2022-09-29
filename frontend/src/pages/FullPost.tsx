@@ -16,7 +16,8 @@ export const FullPost: FC = () => {
     dataStatus: posts.dataStatus,
   }))
   const isLoading = dataStatus === DataStatus.PENDING;
-
+  console.log(post);
+  
   useEffect(() => {
     dispatch(postsActions.getPost(String(id)));
   },[dispatch, id]);
@@ -28,7 +29,7 @@ export const FullPost: FC = () => {
     <>
       <Post
         id={post?._id}
-        title="Roast the code #1 | Rock Paper Scissors"
+        title={post?.title}
         imageUrl= {post?.imageUrl}
         user={post?.author}
         createdAt={post?.createdAt}

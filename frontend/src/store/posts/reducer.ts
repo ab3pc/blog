@@ -1,11 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataStatus } from "common/enums/enums";
 import { Post } from "common/types/types";
-import { getPost, getPosts, getTags } from "./actions";
+import { createPost, getPost, getPosts, getTags } from "./actions";
 
 type State = {
   dataStatus: DataStatus,
-  posts: Post[] ,
+  posts: Post[],
   post: Post | null,
   tags: string[],
 };
@@ -57,7 +57,19 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getPost.rejected, (state, { payload }) => {
    state.dataStatus = DataStatus.REJECTED;
    state.tags = [];
-  })
+  });
+
+  builder.addCase(createPost.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(createPost.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(createPost.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+
 });
 
 export { reducer };
